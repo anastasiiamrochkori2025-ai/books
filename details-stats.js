@@ -1,8 +1,6 @@
-// ==========================================
-// ЦЕНТРАЛІЗОВАНЕ БЕЗПЕЧНЕ СХОВИЩЕ (STORAGE)
-// ==========================================
 const AppStorage = {
-  loadLibrary() {
+
+loadLibrary() {
     try {
       const data = localStorage.getItem(STORAGE_KEY);
       if (!data) return null;
@@ -34,7 +32,7 @@ const AppStorage = {
     const book = library[idx];
     const updated = { ...book, ...fields };
 
-    // Автоматичне призначення дат при зміні статусу
+
     if (fields.status) {
       if (fields.status === 'reading' && !updated.startDate) {
         updated.startDate = new Date().toISOString().split('T')[0];
@@ -49,7 +47,6 @@ const AppStorage = {
       }
     }
 
-    // Перевірка кількості прочитаних сторінок
     if (typeof updated.currentPage === 'number' && typeof updated.totalPages === 'number' && updated.totalPages > 0) {
       if (updated.currentPage > updated.totalPages) {
         updated.currentPage = updated.totalPages;
@@ -88,9 +85,6 @@ const AppStorage = {
   }
 };
 
-// ==========================================
-// РОЗШИРЕНЕ ДЕТАЛЬНЕ ВІКНО КНИГИ
-// ==========================================
 let currentDetailId = null;
 
 function renderAdvancedBookDetail(id) {
@@ -203,7 +197,6 @@ function renderAdvancedBookDetail(id) {
 }
 
 function bindAdvancedDetailEvents(book) {
-  // Зміна статусу
   const statusSelect = document.getElementById('advBookStatusSelect');
   if (statusSelect) {
     statusSelect.addEventListener('change', (e) => {
@@ -213,7 +206,6 @@ function bindAdvancedDetailEvents(book) {
     });
   }
 
-  // Зміна дати початку
   const startInput = document.getElementById('advStartDateInput');
   if (startInput) {
     startInput.addEventListener('change', (e) => {
@@ -221,7 +213,6 @@ function bindAdvancedDetailEvents(book) {
     });
   }
 
-  // Зміна дати завершення
   const finishedInput = document.getElementById('advFinishedDateInput');
   if (finishedInput) {
     finishedInput.addEventListener('change', (e) => {
@@ -229,7 +220,7 @@ function bindAdvancedDetailEvents(book) {
     });
   }
 
-  // Оновлення сторінок
+  
   const pageInput = document.getElementById('advCurrentPageInput');
   const pageBtn = document.getElementById('advSaveProgressBtn');
   const pageErr = document.getElementById('advPageError');
@@ -255,7 +246,6 @@ function bindAdvancedDetailEvents(book) {
     });
   }
 
-  // Інтерактивні зірочки
   const stars = document.querySelectorAll('#advStarsContainer .adv-star-btn');
   stars.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -265,7 +255,6 @@ function bindAdvancedDetailEvents(book) {
     });
   });
 
-  // Збереження відгуку
   const reviewBtn = document.getElementById('advSaveReviewBtn');
   const reviewArea = document.getElementById('advReviewTextarea');
   if (reviewBtn && reviewArea) {
@@ -275,7 +264,6 @@ function bindAdvancedDetailEvents(book) {
     });
   }
 
-  // Видалення відгуку
   const delReviewBtn = document.getElementById('advDeleteReviewBtn');
   if (delReviewBtn) {
     delReviewBtn.addEventListener('click', () => {
@@ -287,7 +275,7 @@ function bindAdvancedDetailEvents(book) {
   }
 }
 
-// Замінюємо глобальний метод відкриття детального вікна
+
 window.openBookDetail = function(id) {
   const modal = document.getElementById('bookDetailModal');
   if (!modal) return;
@@ -295,9 +283,6 @@ window.openBookDetail = function(id) {
   modal.classList.add('active');
 };
 
-// ==========================================
-// РОЗДІЛ «СТАТИСТИКА»
-// ==========================================
 let statsSelectedPeriod = 'year';
 let statsDetailChart = null;
 
@@ -502,9 +487,6 @@ function renderFinishedHistoryList() {
   `).join('');
 }
 
-// ==========================================
-// ІМПОРТ ТА ЕКСПОРТ JSON
-// ==========================================
 function setupImportExport() {
   const exportBtn = document.getElementById('exportLibraryBtn');
   const importTrigger = document.getElementById('importLibraryTriggerBtn');
@@ -587,9 +569,6 @@ function setupImportExport() {
   }
 }
 
-// ==========================================
-// ІНІЦІАЛІЗАЦІЯ РОЗШИРЕНЬ
-// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   // Перемикач періоду статистики
   const periodBtns = document.querySelectorAll('.stats-period-btn');
@@ -602,7 +581,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Кнопки футера розширеного модального вікна
   const closeAdvBtn = document.getElementById('advCloseDetailModalBtn');
   const closeAdvFooterBtn = document.getElementById('advCloseModalFooterBtn');
   const deleteAdvBtn = document.getElementById('advDeleteBookBtn');
@@ -634,10 +612,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Налаштування імпорту та експорту
   setupImportExport();
 
-  // Слухаємо глобальне оновлення бібліотеки для оновлення статистики
   window.addEventListener('booknest:library-updated', () => {
     renderStatsSection();
     if (typeof renderAll === 'function') {
@@ -645,6 +621,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Первинний рендеринг статистики
   renderStatsSection();
 });
