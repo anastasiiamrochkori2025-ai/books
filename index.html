@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookNest</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="search.css">
+  <link rel="stylesheet" href="details-stats.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="logo-icon">📚</span>
+      <span class="logo-text">BookNest</span>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="#home" class="nav-link active" data-section="home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Головна</span>
+          </a>
+        </li>
+        <li>
+          <a href="#search" class="nav-link" data-section="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>Пошук книг</span>
+          </a>
+        </li>
+        <li>
+          <a href="#library" class="nav-link" data-section="library">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span>Моя бібліотека</span>
+          </a>
+        </li>
+        <li>
+          <a href="#reading" class="nav-link" data-section="reading">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            <span>Читаю</span>
+          </a>
+        </li>
+        <li>
+          <a href="#finished" class="nav-link" data-section="finished">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>Прочитано</span>
+          </a>
+        </li>
+        <li>
+          <a href="#wishlist" class="nav-link" data-section="wishlist">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span>Хочу прочитати</span>
+          </a>
+        </li>
+        <li>
+          <a href="#stats" class="nav-link" data-section="stats">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span>Статистика</span>
+          </a>
+        </li>
+        <li>
+          <a href="#settings" class="nav-link" data-section="settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Налаштування</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Меню">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h1 class="topbar-title">BookNest</h1>
+      <div class="topbar-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Шукати книги у вашій бібліотеці..." id="globalSearch">
+      </div>
+      <div class="topbar-actions">
+        <button class="btn-icon" id="themeToggle" aria-label="Змінити тему">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="btn-primary open-add-modal" id="addBookBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Додати книгу</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="content" id="content">
+      <!-- DASHBOARD -->
+      <section class="section active" id="section-home">
+        <div class="welcome-banner">
+          <div>
+            <h2 id="welcomeGreeting">Привіт, любителю читання! 👋</h2>
+            <p id="motivationalQuote" class="motivational-quote">«Книга — це сад, який можна носити в кишені»</p>
+          </div>
+          <button class="btn-primary open-add-modal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Додати книгу</span>
+          </button>
+        </div>
+
+        <div class="cards-grid">
+          <div class="stat-card" data-navigate="library">
+            <div class="stat-card-icon total">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            <div class="stat-card-info">
+              <span class="stat-card-value" id="stat-total">0</span>
+              <span class="stat-card-label">Усього книг</span>
+            </div>
+          </div>
+          <div class="stat-card" data-navigate="finished">
+            <div class="stat-card-icon finished">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="stat-card-info">
+              <span class="stat-card-value" id="stat-finished">0</span>
+              <span class="stat-card-label">Прочитано</span>
+            </div>
+          </div>
+          <div class="stat-card" data-navigate="reading">
+            <div class="stat-card-icon reading">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <div class="stat-card-info">
+              <span class="stat-card-value" id="stat-reading">0</span>
+              <span class="stat-card-label">Читаю зараз</span>
+            </div>
+          </div>
+          <div class="stat-card" data-navigate="wishlist">
+            <div class="stat-card-icon wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="stat-card-info">
+              <span class="stat-card-value" id="stat-wishlist">0</span>
+              <span class="stat-card-label">Хочу прочитати</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-analytics-grid">
+          <div class="analytics-card progress-box">
+            <div class="analytics-card-header">
+              <h3>Річна ціль читання (<span id="currentYearDisplay">2026</span>)</h3>
+              <button class="btn-text-action" id="changeGoalBtn">Змінити ціль</button>
+            </div>
+            <div class="progress-details">
+              <div class="progress-numbers">
+                <span id="yearlyReadCount" class="progress-count">0</span>
+                <span class="progress-target">/ <span id="yearlyTargetGoal">12</span> книг</span>
+              </div>
+              <span id="yearlyPercentage" class="progress-badge">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="yearlyProgressBar" style="width: 0%;"></div>
+            </div>
+            <p class="progress-hint" id="progressHint">Почніть відзначати прочитані книги, щоб заповнити шкалу!</p>
+          </div>
+
+          <div class="analytics-card chart-box">
+            <div class="analytics-card-header">
+              <h3>Прочитані книги за кожен місяць</h3>
+              <span class="chart-year-tag" id="chartYearTag">2026 рік</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="monthlyReadingChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-section-block">
+          <div class="block-header">
+            <div>
+              <h3>Продовжити читання</h3>
+              <p>Книги, у процесі читання</p>
+            </div>
+            <a href="#reading" class="inline-nav-link" data-section="reading">Усі книги в процесі &rarr;</a>
+          </div>
+          <div class="reading-grid" id="dashboardReadingList"></div>
+        </div>
+
+        <div class="dashboard-section-block">
+          <div class="block-header">
+            <div>
+              <h3>Нещодавно додані</h3>
+              <p>Останні поповнення вашої полиці</p>
+            </div>
+            <a href="#library" class="inline-nav-link" data-section="library">Перейти до повної бібліотеки &rarr;</a>
+          </div>
+          <div class="recent-grid" id="dashboardRecentList"></div>
+        </div>
+      </section>
+
+      <!-- ПОШУК КНИГ -->
+      <section class="section" id="section-search">
+        <div class="section-header">
+          <h2>Пошук книг</h2>
+          <p>Шукайте за назвою, автором або ISBN через каталог Google Books</p>
+        </div>
+
+        <form class="search-form-bar" id="googleSearchForm">
+          <div class="search-input-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="apiSearchQuery" placeholder="Введіть назву, автора або ISBN..." required>
+          </div>
+          <button type="submit" class="btn-primary" id="searchSubmitBtn">
+            <span>Знайти</span>
+          </button>
+        </form>
+
+        <div class="search-filter-controls" id="searchFiltersBlock" style="display: none;">
+          <div class="filter-item">
+            <label for="filterGenre">Жанр / Категорія:</label>
+            <select id="filterGenre">
+              <option value="all">Усі категорії</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <label for="filterYear">Рік видання:</label>
+            <select id="filterYear">
+              <option value="all">Усі роки</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <label for="sortTitle">Сортування:</label>
+            <select id="sortTitle">
+              <option value="default">За релевантністю</option>
+              <option value="asc">Назва (А — Я)</option>
+              <option value="desc">Назва (Я — А)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="searchStatusArea">
+          <div class="empty-state" id="searchEmptyInitial">
+            <div class="empty-state-icon">🔍</div>
+            <h3>Почніть пошук</h3>
+            <p>Введіть запит, щоб знайти книги у світовій бібліотеці Google Books</p>
+          </div>
+
+          <div class="search-loading" id="searchLoadingIndicator" style="display: none;">
+            <div class="spinner"></div>
+            <p>Шукаємо книги за вашим запитом...</p>
+          </div>
+
+          <div class="search-message-card error" id="searchErrorNotice" style="display: none;">
+            <div class="msg-icon">⚠️</div>
+            <div class="msg-body">
+              <h4>Не вдалося зв'язатися з сервісом Google Books</h4>
+              <p>Перевірте інтернет-з'єднання. Локальна бібліотека та ручне додавання книг залишаються повністю доступними.</p>
+            </div>
+          </div>
+
+          <div class="empty-state" id="searchNoResultsNotice" style="display: none;">
+            <div class="empty-state-icon">📖</div>
+            <h3>Нічого не знайдено</h3>
+            <p>За цим запитом або обраними фільтрами книг не знайдено. Спробуйте уточнити пошук.</p>
+          </div>
+        </div>
+
+        <div class="search-results-grid" id="searchResultsGrid"></div>
+      </section>
+
+     <section class="section" id="section-stats">
+  <div class="section-header-flex">
+    <div class="section-header">
+      <h2>Статистика читання</h2>
+      <p>Аналітика вашої читацької активності та історія успіхів</p>
+    </div>
+    <div class="stats-period-selector">
+      <button class="stats-period-btn" data-period="month">Поточний місяць</button>
+      <button class="stats-period-btn active" data-period="year">Поточний рік</button>
+      <button class="stats-period-btn" data-period="all">Весь час</button>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="stat-card">
+      <div class="stat-card-icon finished">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="stat-card-info">
+        <span class="stat-card-value" id="statsDynamicFinished">0</span>
+        <span class="stat-card-label" id="statsDynamicLabel">Прочитано за період</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon reading">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <div class="stat-card-info">
+        <span class="stat-card-value" id="statsDynamicPages">0</span>
+        <span class="stat-card-label">Прочитано сторінок</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="stat-card-info">
+        <span class="stat-card-value" id="statsDynamicRating">0.0</span>
+        <span class="stat-card-label">Середній рейтинг (★)</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-icon total">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
+      <div class="stat-card-info">
+        <span class="stat-card-value" id="statsAllTimeFinishedTotal">0</span>
+        <span class="stat-card-label">Всього прочитано (за весь час)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-analytics-layout">
+    <div class="analytics-card">
+      <div class="analytics-card-header">
+        <h3>Графік прочитаних книг за місяцями</h3>
+        <span class="chart-year-tag" id="statsChartPeriodTag">Поточний рік</span>
+      </div>
+      <div class="chart-container" style="height: 250px;">
+        <canvas id="statsDetailedMonthlyChart"></canvas>
+      </div>
+    </div>
+
+    <div class="analytics-card">
+      <div class="analytics-card-header">
+        <h3>Найпопулярніші жанри</h3>
+      </div>
+      <div id="statsTopGenresContainer" class="genres-progress-list"></div>
+    </div>
+  </div>
+
+  <div class="dashboard-section-block" style="margin-top: 36px;">
+    <div class="block-header">
+      <div>
+        <h3>Історія завершених книг</h3>
+        <p>Хронологія підкорених літературних видань із датами фінішу</p>
+      </div>
+    </div>
+    <div class="finished-history-list" id="statsFinishedHistoryList"></div>
+  </div>
+
+  <div class="setting-item">
+  <div class="setting-info">
+    <h3>Експорт бібліотеки</h3>
+    <p>Завантажте резервну копію всіх збережених книг у форматі JSON</p>
+  </div>
+  <button class="btn-primary" id="exportLibraryBtn" type="button">Експортувати JSON</button>
+</div>
+<div class="setting-item">
+  <div class="setting-info">
+    <h3>Імпорт бібліотеки</h3>
+    <p>Відновіть книги з JSON файлу з попередньою перевіркою коректності</p>
+  </div>
+  <div>
+    <input type="file" id="importJsonFileInput" accept=".json" style="display: none;">
+    <button class="btn-secondary" id="importLibraryTriggerBtn" type="button">Обрати файл JSON</button>
+  </div>
+</div>
+</section>
+
+      <!-- ЧИТАЮ ЗАРАЗ -->
+      <section class="section" id="section-reading">
+        <div class="section-header">
+          <h2>Читаю зараз</h2>
+          <p>Книги, над якими ви зараз працюєте</p>
+        </div>
+        <div class="reading-grid" id="readingBooksGrid"></div>
+        <div class="empty-state" id="readingEmptyState" style="display: none;">
+          <div class="empty-state-icon">📖</div>
+          <h3>Ви нічого зараз не читаєте</h3>
+          <p>Оберіть або додайте книгу, встановивши статус «Читаю»</p>
+        </div>
+      </section>
+
+      <!-- ПРОЧИТАНО -->
+      <section class="section" id="section-finished">
+        <div class="section-header">
+          <h2>Прочитано</h2>
+          <p>Ваш список підкорених літературних вершин</p>
+        </div>
+        <div class="recent-grid" id="finishedBooksGrid"></div>
+        <div class="empty-state" id="finishedEmptyState" style="display: none;">
+          <div class="empty-state-icon">✅</div>
+          <h3>Список прочитаного порожній</h3>
+          <p>Відзначайте прочитані книги, і вони з'являться тут</p>
+        </div>
+      </section>
+
+      <!-- ХОЧУ ПРОЧИТАТИ -->
+      <section class="section" id="section-wishlist">
+        <div class="section-header">
+          <h2>Хочу прочитати</h2>
+          <p>Список бажань та плани на майбутнє</p>
+        </div>
+        <div class="recent-grid" id="wishlistBooksGrid"></div>
+        <div class="empty-state" id="wishlistEmptyState" style="display: none;">
+          <div class="empty-state-icon">💛</div>
+          <h3>Список бажань порожній</h3>
+          <p>Додайте сюди книги, які запланували придбати або прочитати</p>
+        </div>
+      </section>
+
+      <!-- СТАТИСТИКА -->
+      <section class="section" id="section-stats">
+        <div class="section-header">
+          <h2>Детальна статистика</h2>
+          <p>Аналітика вашої читацької активності</p>
+        </div>
+        <div class="cards-grid">
+          <div class="stat-card">
+            <div class="stat-card-icon total"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+            <div class="stat-card-info">
+              <span class="stat-card-value" id="statsDetailTotal">0</span>
+              <span class="stat-card-label">Всього в колекції</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon finished"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="stat-card-info">
+              <span class="stat-card-value" id="statsDetailFinished">0</span>
+              <span class="stat-card-label">Успішно прочитано</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon reading"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+            <div class="stat-card-info">
+              <span class="stat-card-value" id="statsDetailPages">0</span>
+              <span class="stat-card-label">Прочитано сторінок</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div>
+            <div class="stat-card-info">
+              <span class="stat-card-value" id="statsDetailAvg">0</span>
+              <span class="stat-card-label">Сер. к-сть ст./книга</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- НАЛАШТУВАННЯ -->
+      <section class="section" id="section-settings">
+        <div class="section-header">
+          <h2>Налаштування</h2>
+          <p>Персоналізуйте свій додаток BookNest</p>
+        </div>
+        <div class="settings-group">
+          <div class="setting-item">
+            <div class="setting-info">
+              <h3>Темна тема</h3>
+              <p>Перемикання між світлою та темною темами інтерфейсу</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="settingsThemeToggle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <div class="setting-info">
+              <h3>Річна мета прочитаних книг</h3>
+              <p>Встановіть ціль кількості книг на рік</p>
+            </div>
+            <input type="number" id="settingsGoalInput" class="setting-input-num" min="1" max="500" value="12">
+          </div>
+          <div class="setting-item">
+            <div class="setting-info">
+              <h3>Скинути до демонстраційних даних</h3>
+              <p>Повернути тестовий набір книг та очистити особисті зміни</p>
+            </div>
+            <button class="btn-secondary-danger" id="resetDemoBtn">Скинути базу</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- МОДАЛЬНЕ ВІКНО ДОДАВАННЯ ТА РЕДАГУВАННЯ -->
+  <div class="modal-overlay" id="bookModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Додати нову книгу</h3>
+        <button class="btn-close-modal" id="closeModalBtn" aria-label="Закрити">&times;</button>
+      </div>
+      <form id="bookForm" novalidate>
+        <input type="hidden" id="bookIdInput">
+        <input type="hidden" id="bookGoogleIdInput">
+
+        <div class="form-group">
+          <label for="bookTitle">Назва книги <span class="required">*</span></label>
+          <input type="text" id="bookTitle" required placeholder="Наприклад: Кобзар">
+          <span class="form-error-msg" id="errBookTitle"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bookAuthor">Автор <span class="required">*</span></label>
+            <input type="text" id="bookAuthor" required placeholder="Тарас Шевченко">
+            <span class="form-error-msg" id="errBookAuthor"></span>
+          </div>
+          <div class="form-group">
+            <label for="bookGenre">Жанр / Категорія <span class="required">*</span></label>
+            <input type="text" id="bookGenre" required placeholder="Поезія, Роман, Детектив...">
+            <span class="form-error-msg" id="errBookGenre"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bookYear">Рік видання</label>
+            <input type="number" id="bookYear" min="1000" max="2099" placeholder="2024">
+            <span class="form-error-msg" id="errBookYear"></span>
+          </div>
+          <div class="form-group">
+            <label for="bookTotalPages">Кількість сторінок <span class="required">*</span></label>
+            <input type="number" id="bookTotalPages" min="1" required placeholder="320">
+            <span class="form-error-msg" id="errBookTotalPages"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bookStatus">Статус читання</label>
+            <select id="bookStatus">
+              <option value="reading">Читаю зараз</option>
+              <option value="finished">Прочитано</option>
+              <option value="wishlist">Хочу прочитати</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="bookCurrentPage">Поточна сторінка</label>
+            <input type="number" id="bookCurrentPage" min="0" value="0">
+            <span class="form-error-msg" id="errBookCurrentPage"></span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bookRating">Особистий рейтинг</label>
+            <div class="star-rating-input" id="starRatingInput">
+              <button type="button" class="star-btn" data-value="1">★</button>
+              <button type="button" class="star-btn" data-value="2">★</button>
+              <button type="button" class="star-btn" data-value="3">★</button>
+              <button type="button" class="star-btn" data-value="4">★</button>
+              <button type="button" class="star-btn" data-value="5">★</button>
+              <input type="hidden" id="bookRating" value="0">
+            </div>
+          </div>
+          <div class="form-group" id="finishedDateGroup">
+            <label for="bookFinishedDate">Дата завершення</label>
+            <input type="date" id="bookFinishedDate">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bookCoverUrl">Посилання на обкладинку (URL)</label>
+          <input type="url" id="bookCoverUrl" placeholder="https://example.com/cover.jpg">
+          <span class="form-error-msg" id="errBookCoverUrl"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="bookDescription">Короткий опис / Нотатки</label>
+          <textarea id="bookDescription" rows="3" placeholder="Враження або анотація..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="cancelModalBtn">Скасувати</button>
+          <button type="submit" class="btn-primary" id="saveBookSubmitBtn">Зберегти книгу</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+ <div class="modal-overlay" id="bookDetailModal">
+  <div class="modal-content modal-detail-advanced">
+    <div class="modal-header">
+      <h3 id="advDetailHeaderTitle">Деталі книги</h3>
+      <button class="btn-close-modal" id="advCloseDetailModalBtn" aria-label="Закрити">&times;</button>
+    </div>
+    
+    <div class="adv-detail-content" id="advBookDetailContainer">
+      <!-- Вміст динамічно генерується details-stats.js -->
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn-secondary-danger" id="advDeleteBookBtn">Видалити книгу</button>
+      <button type="button" class="btn-secondary" id="advEditFullBtn">Повне редагування</button>
+      <button type="button" class="btn-primary" id="advCloseModalFooterBtn">Готово</button>
+    </div>
+  </div>
+</div>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <script src="script.js"></script>
+  <script src="search.js"></script>
+  <script src="details-stats.js"></script>
+</body>
+</html>
